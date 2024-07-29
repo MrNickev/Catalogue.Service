@@ -2,7 +2,7 @@
 using Aplication.Ozon.Abstractions;
 using Aplication.Ozon.Models;
 using System.Text.Json;
-using Microsoft.Extensions.Logging;
+
 
 namespace Aplication.Ozon.Services;
 
@@ -92,41 +92,41 @@ public class OzonApiService : IOzonRequestService
     {
         var ozonItem = new OzonItem();
 
-        if (item.TryGetProperty("action", out JsonElement action))
-            if (action.TryGetProperty("link", out JsonElement link))
-                ozonItem.Link = link.GetString();
-        
-        if (item.TryGetProperty("mainState", out JsonElement mainState))
-            for (var i = 0; i < mainState.GetArrayLength(); i++)
-            {
-                if (mainState[i].TryGetProperty("atom", out var atom))
-                    switch (atom.GetProperty("type").GetString())
-                    {
-                        case "priceV2":
-                            var priceProperty = atom.GetProperty("priceV2").GetProperty("price");
-                            for (var priceIterator = 0; priceIterator < priceProperty.GetArrayLength(); priceIterator++)
-                            {
-
-                                switch (priceProperty[priceIterator].GetProperty("textStyle").GetString())
-                                {
-                                    case "PRICE":
-                                        ozonItem.Price = priceProperty[priceIterator].GetProperty("text").GetDecimal();
-                                        break;
-                                    
-                                    case "ORIGINAL_PRICE":
-                                        ozonItem.OriginalPrice =
-                                            priceProperty[priceIterator].GetProperty("text").GetDecimal();
-                                        break;
-                                }
-                            }
-                            break;
-                        
-                        case 
-                            
-                    }
-                
-            }
-        
+        // if (item.TryGetProperty("action", out JsonElement action))
+        //     if (action.TryGetProperty("link", out JsonElement link))
+        //         ozonItem.Link = link.GetString();
+        //
+        // if (item.TryGetProperty("mainState", out JsonElement mainState))
+        //     for (var i = 0; i < mainState.GetArrayLength(); i++)
+        //     {
+        //         if (mainState[i].TryGetProperty("atom", out var atom))
+        //             switch (atom.GetProperty("type").GetString())
+        //             {
+        //                 case "priceV2":
+        //                     var priceProperty = atom.GetProperty("priceV2").GetProperty("price");
+        //                     for (var priceIterator = 0; priceIterator < priceProperty.GetArrayLength(); priceIterator++)
+        //                     {
+        //
+        //                         switch (priceProperty[priceIterator].GetProperty("textStyle").GetString())
+        //                         {
+        //                             case "PRICE":
+        //                                 ozonItem.Price = priceProperty[priceIterator].GetProperty("text").GetDecimal();
+        //                                 break;
+        //                             
+        //                             case "ORIGINAL_PRICE":
+        //                                 ozonItem.OriginalPrice =
+        //                                     priceProperty[priceIterator].GetProperty("text").GetDecimal();
+        //                                 break;
+        //                         }
+        //                     }
+        //                     break;
+        //                 
+        //                 case 
+        //                     
+        //             }
+        //         
+        //     }
+        //
         
         return ozonItem;
     }

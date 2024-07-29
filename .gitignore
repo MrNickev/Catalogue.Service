@@ -14,3 +14,5 @@
 /Domain.TechDoc/obj
 /Infrastructure.Configuration/bin
 /Infrastructure.Configuration/obj
+/Startup/bin
+/Startup/obj
