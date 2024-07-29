@@ -92,41 +92,51 @@ public class OzonApiService : IOzonRequestService
     {
         var ozonItem = new OzonItem();
 
-        // if (item.TryGetProperty("action", out JsonElement action))
-        //     if (action.TryGetProperty("link", out JsonElement link))
-        //         ozonItem.Link = link.GetString();
-        //
-        // if (item.TryGetProperty("mainState", out JsonElement mainState))
-        //     for (var i = 0; i < mainState.GetArrayLength(); i++)
-        //     {
-        //         if (mainState[i].TryGetProperty("atom", out var atom))
-        //             switch (atom.GetProperty("type").GetString())
-        //             {
-        //                 case "priceV2":
-        //                     var priceProperty = atom.GetProperty("priceV2").GetProperty("price");
-        //                     for (var priceIterator = 0; priceIterator < priceProperty.GetArrayLength(); priceIterator++)
-        //                     {
-        //
-        //                         switch (priceProperty[priceIterator].GetProperty("textStyle").GetString())
-        //                         {
-        //                             case "PRICE":
-        //                                 ozonItem.Price = priceProperty[priceIterator].GetProperty("text").GetDecimal();
-        //                                 break;
-        //                             
-        //                             case "ORIGINAL_PRICE":
-        //                                 ozonItem.OriginalPrice =
-        //                                     priceProperty[priceIterator].GetProperty("text").GetDecimal();
-        //                                 break;
-        //                         }
-        //                     }
-        //                     break;
-        //                 
-        //                 case 
-        //                     
-        //             }
-        //         
-        //     }
-        //
+        if (item.TryGetProperty("action", out JsonElement action))
+            if (action.TryGetProperty("link", out JsonElement link))
+                ozonItem.Link = link.GetString();
+        
+        if (item.TryGetProperty("mainState", out JsonElement mainState))
+        {
+            for (var i = 0; i < mainState.GetArrayLength(); i++)
+            {
+                if (mainState[i].TryGetProperty("atom", out var atom) &&
+                    atom.GetProperty("type").GetString() == "priceV2")
+                {
+                    var priceProperty = atom.GetProperty("priceV2").GetProperty("price");
+                    for (var priceIterator = 0; priceIterator < priceProperty.GetArrayLength(); priceIterator++)
+                    {
+
+                        switch (priceProperty[priceIterator].GetProperty("textStyle").GetString())
+                        {
+                            case "PRICE":
+                                ozonItem.Price = priceProperty[priceIterator].GetProperty("text").GetDecimal();
+                                break;
+
+                            case "ORIGINAL_PRICE":
+                                ozonItem.OriginalPrice =
+                                    priceProperty[priceIterator].GetProperty("text").GetDecimal();
+                                break;
+                        }
+                    }
+                }
+
+                if (mainState[i].TryGetProperty("id", out var name) && name.GetString() == "name")
+                {
+                    mainState[i].GetProperty("atom").TryGetProperty("textAtom", out var textAtom);
+                    textAtom.TryGetProperty("text", out var partNameElement);
+                    ozonItem.Name = partNameElement.GetString();
+                }
+
+            }
+        }
+
+        if (item.TryGetProperty("tileImage", out var imageItems) && imageItems.TryGetProperty("items", out var images))
+        {
+            
+        }
+        
+        
         
         return ozonItem;
     }
