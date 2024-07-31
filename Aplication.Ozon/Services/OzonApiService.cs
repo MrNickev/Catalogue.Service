@@ -2,6 +2,7 @@
 using Aplication.Ozon.Abstractions;
 using Aplication.Ozon.Models;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 
 namespace Aplication.Ozon.Services;
@@ -110,29 +111,56 @@ public class OzonApiService : IOzonRequestService
                         switch (priceProperty[priceIterator].GetProperty("textStyle").GetString())
                         {
                             case "PRICE":
-                                ozonItem.Price = priceProperty[priceIterator].GetProperty("text").GetDecimal();
+                                
+                                var stringPrice = priceProperty[priceIterator].GetProperty("text").GetString();
+                                if (stringPrice is not null)
+                                {
+                                    stringPrice = Regex.Replace(stringPrice, @"[\s+₽]", "");
+                                    ozonItem.Price = decimal.Parse(stringPrice);
+                                }
+
                                 break;
 
                             case "ORIGINAL_PRICE":
-                                ozonItem.OriginalPrice =
-                                    priceProperty[priceIterator].GetProperty("text").GetDecimal();
+                                var stringOriginalPrice = priceProperty[priceIterator].GetProperty("text").GetString();
+                                if (stringOriginalPrice is not null)
+                                {
+                                    stringOriginalPrice = Regex.Replace(stringOriginalPrice, @"[\s+₽]", "");
+                                    ozonItem.OriginalPrice =
+                                        decimal.Parse(stringOriginalPrice);
+                                }
                                 break;
                         }
                     }
                 }
 
-                if (mainState[i].TryGetProperty("id", out var name) && name.GetString() == "name")
+                if (mainState[i].TryGetProperty("id", out var name) && 
+                    name.GetString() == "name" &&
+                    mainState[i].TryGetProperty("atom", out var nameAtom) &&
+                    nameAtom.TryGetProperty("textAtom", out var textAtom) &&
+                    textAtom.TryGetProperty("text", out var partNameElement)
+                    )
                 {
-                    mainState[i].GetProperty("atom").TryGetProperty("textAtom", out var textAtom);
-                    textAtom.TryGetProperty("text", out var partNameElement);
                     ozonItem.Name = partNameElement.GetString();
                 }
 
             }
         }
 
-        if (item.TryGetProperty("tileImage", out var imageItems) && imageItems.TryGetProperty("items", out var images))
+        if (item.TryGetProperty("tileImage", out var imageItems) && 
+            imageItems.TryGetProperty("items", out var images))
         {
+            foreach (var imageItem in images.EnumerateArray())
+            {
+                if (imageItem.TryGetProperty("image", out var image) &&
+                    image.TryGetProperty("link", out var imageLink)
+                    )
+                {
+                    var imageLinkText = imageLink.GetString();
+                    if (imageLinkText is not null)
+                        ozonItem.ImageLinks.Add(imageLinkText);
+                }
+            }
             
         }
         

@@ -13,10 +13,14 @@ public class OzonSearchService(IOzonRequestService searchService) : ISearcherSer
 
     public async Task<IEnumerable<PartDto>> FindPartAsync(string? article, string? name)
     {
-
-        var result = await searchService.FindPart(article + name);       
-        
-        var task = Task.Run(() => new PartDto[] { new PartDto("abc", 125, article) });
+        var task = Task.Run(async () =>
+        {
+            var findParts = await searchService.FindPart(article + name);
+            if (findParts is not null)
+                return findParts.Select(item => new PartDto(item.Name, item.Price, null, item.ImageLinks));
+            
+            return new List<PartDto>();
+        });
 
         return await task;
         

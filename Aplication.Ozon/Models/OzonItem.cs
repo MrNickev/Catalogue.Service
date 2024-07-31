@@ -8,8 +8,12 @@ public class OzonItem
     
     public decimal OriginalPrice { get; set; }
     
-    public string ImageLink { get; set; }
+    public List<string> ImageLinks { get; set; }
     
     public string? Link { get; set; }
-    
+
+    public OzonItem()
+    {
+        ImageLinks = new List<string>();
+    }
 }
