@@ -1,19 +1,36 @@
-﻿namespace Aplication.Ozon.Models;
+﻿using Application.Common.Abstractions;
+using Application.Common.Models;
 
-public class OzonItem
+namespace Aplication.Ozon.Models;
+
+public class OzonItem : PartItem
 {
-    public string? Name { get; set; }
-    
-    public decimal Price { get; set; }
-    
-    public decimal OriginalPrice { get; set; }
-    
-    public List<string> ImageLinks { get; set; }
-    
-    public string? Link { get; set; }
 
-    public OzonItem()
+    private decimal _originalPrice;
+    public decimal OriginalPrice
     {
-        ImageLinks = new List<string>();
+        get => _originalPrice;
+        set
+        {
+            _originalPrice = value;
+            Offers.Add(new Offer(value));
+        }
     }
+
+    private decimal _price;
+    public decimal Price
+    {
+        get => _price;
+        set
+        {
+            _price = value;
+            Offers.Add(new Offer(value));
+        }
+    }
+
+    public OzonItem() : base()
+    {
+        
+    }
+
 }

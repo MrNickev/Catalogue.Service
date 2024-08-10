@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.Loader;
 using Application.Common.Exceptions;
 using Application.Common.Models;
@@ -40,33 +43,6 @@ public static class ConfigurationRegisterServices
 
     public static void RegisterServices(this IServiceCollection services)
     {
-        // var mytype = typeof(IRegisterServices);
-        // // var assemblies = new Assembly[]
-        // //     { typeof(OzonRegisterServices).Assembly, typeof(ConfigurationRegisterServices).Assembly };
-        //
-        // var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-        //
-        // Console.WriteLine("Loaded Assemblies:");
-        // foreach (var assembly in assemblies)
-        // {
-        //     Console.WriteLine(assembly.FullName);
-        // }
-        //
-        // var types = assemblies
-        //     .SelectMany(s => s.GetTypes())
-        //     .Where(p => mytype.IsAssignableFrom(p) && !p.IsInterface);
-        //
-        //
-        //
-        //
-        // Console.WriteLine("Found Types:");
-        // foreach (var type in types)
-        // {
-        //     Console.WriteLine(type.FullName);
-        //     var instance = Activator.CreateInstance(type) as IRegisterServices;
-        //     instance?.Register(services);
-        // }
-
         // Получаем все сборки, уже загруженные в домен приложения
         var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
 
@@ -98,7 +74,7 @@ public static class ConfigurationRegisterServices
 
         foreach (var type in registerServicesTypes)
         {
-            var instance = (IRegisterServices)Activator.CreateInstance(type);
+            var instance = (IRegisterServices)Activator.CreateInstance(type)!;
             instance.Register(services);
         }
         

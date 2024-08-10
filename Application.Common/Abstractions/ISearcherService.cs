@@ -1,4 +1,4 @@
-﻿using Application.Common.Models.Dto;
+﻿using Application.Common.Models;
 
 namespace Application.Common.Abstractions;
 
@@ -13,6 +13,6 @@ public interface ISearcherService
     /// <param name="article">Артикул</param>
     /// <param name="name">Название</param>
     /// <returns>Коллекцию найденных товаров</returns>
-    public Task<IEnumerable<PartDto>> FindPartAsync(string? article, string? name);
+    public Task<IEnumerable<PartItem>> FindPartAsync(SearchData data);
     
 }

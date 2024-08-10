@@ -1,4 +1,6 @@
-﻿namespace Application.Common.Exceptions;
+﻿using System;
+
+namespace Application.Common.Exceptions;
 
 /// <summary>
 /// Ошибка конфигурации приложения

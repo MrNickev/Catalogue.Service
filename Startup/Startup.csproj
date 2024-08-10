@@ -13,6 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Application.Avtomoe\Application.Avtomoe.csproj" />
       <ProjectReference Include="..\Destributed.PartsSearcherController\Destributed.PartsSearcherController.csproj" />
       <ProjectReference Include="..\Infrastructure.Configuration\Infrastructure.Configuration.csproj" />
     </ItemGroup>

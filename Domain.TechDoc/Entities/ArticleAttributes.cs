@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.TechDoc;
+namespace Domain.TechDoc.Entities;
 
 /// <summary>
 /// Характеристики/Критерии

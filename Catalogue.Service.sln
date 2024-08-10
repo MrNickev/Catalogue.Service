@@ -9,9 +9,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainLayer", "DomainLayer", "{DD76C922-3A24-4DA3-973C-54E29530A738}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InfrastructureLayer", "InfrastructureLayer", "{773E5B0B-7EEF-4598-8C11-8A41E9240E91}"
-	ProjectSection(SolutionItems) = preProject
-		TestRegisterService.cs = TestRegisterService.cs
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Common", "Application.Common\Application.Common.csproj", "{095D441F-7940-4539-851E-B864029C0D61}"
 EndProject
@@ -28,6 +25,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Configuration", "Infrastructure.Configuration\Infrastructure.Configuration.csproj", "{E41B1F3C-BC06-425C-9E2F-2719D952EA2E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Startup", "Startup\Startup.csproj", "{A8A237A6-3C2F-42C6-8647-76BE467D7448}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Avtomoe", "Application.Avtomoe\Application.Avtomoe.csproj", "{3F9B8370-1811-43A8-9066-D735698434A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +66,10 @@ Global
 		{A8A237A6-3C2F-42C6-8647-76BE467D7448}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8A237A6-3C2F-42C6-8647-76BE467D7448}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8A237A6-3C2F-42C6-8647-76BE467D7448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F9B8370-1811-43A8-9066-D735698434A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F9B8370-1811-43A8-9066-D735698434A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F9B8370-1811-43A8-9066-D735698434A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F9B8370-1811-43A8-9066-D735698434A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{095D441F-7940-4539-851E-B864029C0D61} = {696C8F77-6A8D-4434-9E5D-A1FFCEB24036}
@@ -76,5 +79,6 @@ Global
 		{794A308B-4221-4B2B-9674-480D252C3EBD} = {01410EB1-65A0-4163-8D5D-684B20F98999}
 		{2B10D153-9501-4FDC-8119-7D4FE0372895} = {DD76C922-3A24-4DA3-973C-54E29530A738}
 		{E41B1F3C-BC06-425C-9E2F-2719D952EA2E} = {773E5B0B-7EEF-4598-8C11-8A41E9240E91}
+		{3F9B8370-1811-43A8-9066-D735698434A8} = {696C8F77-6A8D-4434-9E5D-A1FFCEB24036}
 	EndGlobalSection
 EndGlobal

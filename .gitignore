@@ -16,3 +16,6 @@
 /Infrastructure.Configuration/obj
 /Startup/bin
 /Startup/obj
+*.dll
+/Application.Avtomoe/obj
+/Application.Avtomoe/bin

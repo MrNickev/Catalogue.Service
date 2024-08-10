@@ -1,6 +1,12 @@
 using Infrastructure.Configuration;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
