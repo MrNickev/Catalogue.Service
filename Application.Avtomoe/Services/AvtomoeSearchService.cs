@@ -19,7 +19,6 @@ public class AvtomoeSearchService(ILogger<AvtomoePartInfo> logger) : ISearcherSe
 
     public async Task<IEnumerable<PartItem>> FindPartAsync(SearchData data)
     {
-
         //TODO: сделать автоматический поиск города или его указание
         var city = "ufa";
         var sendContent = JsonContent.Create(new { vendor = data.Supplier, catnum = data.Article });

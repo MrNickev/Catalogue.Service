@@ -3,13 +3,16 @@ using System.Threading.Tasks;
 using Application.Common.Abstractions;
 using Application.Common.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace PartsSearcherController;
 
 [ApiController]
 [Route("parts")]
-public class PartSearcherController(IEnumerable<ISearcherService> services) : ControllerBase
+public class PartSearcherController(IEnumerable<ISearcherService> services, ILogger<PartSearcherController> logger) : ControllerBase
 {
+
+    private readonly ILogger _logger = logger;
     
     /// <summary>
     /// Поиск запчасти по артикулу и/или названию
@@ -31,11 +34,19 @@ public class PartSearcherController(IEnumerable<ISearcherService> services) : Co
         {
             tasks.Add(Task.Run(async () =>
             {
-                var search = await service.FindPartAsync(data);
-                lock (searchResults)
+                try
                 {
-                    searchResults[service.GetType().Name] = search;
+                    var search = await service.FindPartAsync(data);
+                    lock (searchResults)
+                    {
+                        searchResults[service.GetType().Name] = search;
+                    }
                 }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, $"Catched exception in service {service.GetType().Name}");
+                }
+                
             }));
         }
 
