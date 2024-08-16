@@ -11,7 +11,19 @@ builder.Logging.AddConsole();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.RegisterServices();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MyAllowSpecificOrigins",
+        policy  =>
+        {
+            policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+        });
+});
+
 builder.Services.AddControllers();
+
+
 
 var app = builder.Build();
 
@@ -24,6 +36,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
+app.UseCors("MyAllowSpecificOrigins");
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
