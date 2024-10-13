@@ -56,7 +56,7 @@ public static class ConfigurationRegisterServices
             try
             {
                 var assemblyName = AssemblyLoadContext.GetAssemblyName(dll);
-                if (assemblies.All(a => a.GetName().Name != assemblyName.Name))
+                if (assemblies.All(a => a.GetName().Name != assemblyName.Name) && !assemblyName.Name.Contains("Microsoft"))
                 {
                     assemblies.Add(Assembly.Load(assemblyName));
                 }

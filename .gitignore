@@ -1,21 +1,7 @@
 
 /.idea
-/Aplication.Ozon/bin
-/Aplication.Ozon/obj
-/Application.Common/bin
-/Application.Common/obj
-/Application.Emex/bin
-/Application.Emex/obj
-/Application.Exist/bin
-/Application.Exist/obj
-/Destributed.PartsSearcherController/bin
-/Destributed.PartsSearcherController/obj
-/Domain.TechDoc/bin
-/Domain.TechDoc/obj
-/Infrastructure.Configuration/bin
-/Infrastructure.Configuration/obj
-/Startup/bin
-/Startup/obj
 *.dll
-/Application.Avtomoe/obj
-/Application.Avtomoe/bin
+/.vs
+/Application/obj
+*/obj
+*/bin

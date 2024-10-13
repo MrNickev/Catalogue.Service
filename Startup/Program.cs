@@ -1,4 +1,5 @@
 using Infrastructure.Configuration;
+using Infrastructure.Configuration.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +11,8 @@ builder.Logging.AddConsole();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.RegisterConfiguration<ConnectionStrings>();
 builder.Services.RegisterServices();
 
 builder.Services.AddCors(options =>
